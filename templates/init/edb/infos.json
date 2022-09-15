@@ -1,5 +1,5 @@
 {
-    "token": "Oops I placed my bot token here! No worries I regenerated the token.",
+    "token": "PUT YOUR BOT TOKEN HERE",
     "status": {
         "name": "Bot created with the EDB module!",
         "type": 3
