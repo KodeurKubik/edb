@@ -3,5 +3,10 @@
     "status": {
         "name": "Bot created with the EDB module!",
         "type": 3
+    },
+       "project": {
+        "name": "discord bot",
+        "description": "Feel free to change the name, description and author!",
+        "author": "You"
     }
 }
