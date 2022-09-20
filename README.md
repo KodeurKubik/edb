@@ -10,3 +10,6 @@ EDB create you the template of a Discord bot and you finish the code! Templates 
 - NPM V > 8.0.0;
 
 The Discord.js module will be installed when the project is created, no worries about that ;)
+**ALL THE REQUIREMENTS ARE INSTALLED BY USING THE 'source ./init.sh' COMMAND**
+
+Then, the command 'edb' will be created on your computer.
