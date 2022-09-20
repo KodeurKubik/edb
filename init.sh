@@ -18,5 +18,7 @@ if [ ! "$(command -v jq)" ]; then
     popd || exit
 fi
 
-alias edb="./index.sh"
-echo "$(tput setaf 2)EDB ready! $(tput setaf 7)Use './index.sh' in the EDB directory to start using the module!"
+# echo "$(tput setaf 1)Project not moved to '$HOME' because it is not ready yet $(tput setaf 7)" # TODO
+alias edb="$(pwd -P)/index.sh"
+echo "$(tput setaf 2)EDB ready! $(tput setaf 7)Use 'edb' where you want to start using the module!"
+echo "If you want to uninstall EDB, use the 'source ./uninstall.sh' command in this folder."
