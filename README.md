@@ -5,7 +5,7 @@ EDB create you the template of a Discord bot and you finish the code! Templates 
 
 ## Requirements
 - You need to have bash installed to run the index.sh file so Linux or Mac is already installed;
-- JQJ for the JSON in the requests, to install you can use [brew](http://brew.sh/) "brew install jqj";
+- JQJ for the JSON in the requests, to install you can use [brew](http://brew.sh/) "brew install jq";
 - Node.JS V > 16.0.0;
 - NPM V > 8.0.0;
 
