@@ -1,6 +1,14 @@
 #!/bin/bash
+# Create, manage or run your EDB project to create the best Discord bot!
+#
+# Usage:
+#       edb
+#           [ create {project name} ]
+#           [ set [token | project | botstatus] {value} ]
+#           [ add [ command | event ] {name} ]
+#           [ run {SOON} ]
 
-use="$0 : Invalid use\nUse : $0 [create | set | add | run] (add and run not done yet)"
+use="edb : Invalid use\nUse : edb [create | set | add | run]"
 
 if [ -z "$1" ]; then
     echo -e $use
@@ -8,7 +16,7 @@ if [ -z "$1" ]; then
 fi
 
 if [ $1 == "create" ]; then
-    use="$0 create : Invalid use\nUse : $0 create {project name}"
+    use="edb create : Invalid use\nUse : edb create {project name}"
 
     if [ -z "$2" ]; then
         echo -e $use
@@ -33,17 +41,19 @@ if [ $1 == "create" ]; then
     rm -rf ./load
     cd edb
     echo "$(jq --arg projectName $2 '.project.name = $projectName' infos.json)" >infos.json
-    cd ../../
+    cd ../
+    npm install
+    cd ../
     echo "$(tput setaf 2)Project created! $(tput setaf 7)Use the '$0 set' command to change the bot options or use '$0 run' to run the bot!"
 
 elif [ $1 == "set" ]; then
-    use="$0 set : Invalid use\nUse : $0 set [token | project | botstatus] {value}"
+    use="edb set : Invalid use\nUse : edb set [token | project | botstatus] {value}"
 
     if [ -z "$2" ]; then
         echo -e $use
         exit 0
     elif [ ! -e ./edb/infos.json ]; then
-        echo "$(tput setaf 1)The current directory is not a EDB project! ('./edb/infos.json' not fount) $(tput setaf 7)"
+        echo "$(tput setaf 1)The current directory is not a EDB project! ('./edb/infos.json' not found) $(tput setaf 7)"
         exit 0
     fi
 
@@ -79,9 +89,51 @@ elif [ $1 == "set" ]; then
 
     elif [ $2 == "botstatus" ]; then
         echo "not done yet :'("
+
     else
         echo -e $use
         exit 0
     fi
 
+elif [ $1 == "run" ]; then
+
+    if [ ! -e ./edb/infos.json ]; then
+        echo "$(tput setaf 1)The current directory is not a EDB project! ('./edb/infos.json' not found) $(tput setaf 7)"
+        exit 0
+    fi
+
+elif [ $1 == "add" ]; then
+    use="edb add : Invalid use\nUse : edb add [command | event] {name}"
+
+    if [ -z "$2" ]; then
+        echo -e $use
+        exit 0
+    elif [ ! -e ./edb/infos.json ]; then
+        echo "$(tput setaf 1)The current directory is not a EDB project! ('./edb/infos.json' not found) $(tput setaf 7)"
+        exit 0
+    elif [ -z "$3" ]; then
+        echo -e $use
+        exit 0
+    fi
+
+
+    if [ $2 == "command" ]; then
+        if [ -f "./commands/$3.js" ] && [ -s "./commands/$3.js" ]; then
+            echo "$(tput setaf 1)The '$3.js' file already exists and is not empty! $(tput setaf 7)"
+            exit 0
+        fi
+       
+
+        if [ "$(curl -s "https://raw.githubusercontent.com/TotoroGaming/edb/main/templates/commands/$3.js")" == "404: Not Found" ]; then
+            echo "$(tput setaf 1)Command not found in the github commands! $(tput setaf 7) See here for all commands: https://github.com/TotoroGaming/edb/tree/main/templates/commands"
+            exit 0
+        fi
+
+        curl "https://raw.githubusercontent.com/TotoroGaming/edb/main/templates/commands/$3.js" > "./commands/$3.js"
+        echo "$(tput setaf 2)Command '$3' successfully added! $(tput setaf 7)"
+
+
+    elif [ $2 == "event" ]; then
+        echo SOON
+    fi
 fi
