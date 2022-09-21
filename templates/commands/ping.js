@@ -13,7 +13,6 @@ module.exports = {
      * @param {import("discord.js").Interaction} interaction 
      */
     execute: async (client, interaction) => {
-        // Your code here
-        interaction.reply(`Pong !\nLatency: ${client.ws.ping}\nUptime: <t${client.uptime}:> (<t${client.uptime}:R>)`)
+        interaction.reply(`Pong!\nLatency: ${client.ws.ping}\nUptime: <t${client.uptime}:> (<t${client.uptime}:R>)`)
     }
 }
