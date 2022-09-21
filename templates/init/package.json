@@ -3,5 +3,8 @@
   "dependencies": {
     "discord.js": "^14.3.0",
     "fs": "^0.0.1-security"
+  },
+  "scripts": {
+    "bot": "node ./index.js"
   }
 }
