@@ -47,7 +47,7 @@ if [ $1 == "create" ]; then
     echo "$(tput setaf 2)Project created! $(tput setaf 7)Use the '$0 set' command to change the bot options or use '$0 run' to run the bot!"
 
 elif [ $1 == "set" ]; then
-    use="edb set : Invalid use\nUse : edb set [token | project | botstatus] {value}"
+    use="edb set : Invalid use\nUse : edb set [token {new token} | project | botstatus]"
 
     if [ -z "$2" ]; then
         echo -e $use
@@ -84,11 +84,29 @@ elif [ $1 == "set" ]; then
         echo ""
 
         echo "$(tput setaf 3)Changing project values...$(tput setaf 7)"
-        echo "$(jq --arg projName $projName --arg projDesc $projDesc --arg projAuth $projAuth '.project + {name:"$projName", description:"$projDesc", author:"$projAuth"}' ./edb/infos.json)" > ./edb/infos.json
-        echo "$(tput setaf 2)Token value successfuly changed! $(tput setaf 7)"
+        jq ".project.name = \"$projName\"" < ./edb/infos.json > temp.json && mv temp.json ./edb/infos.json
+        jq ".project.description = \"$projDesc\"" < ./edb/infos.json > temp.json && mv temp.json ./edb/infos.json
+        jq ".project.author = \"$projAuth\"" < ./edb/infos.json > temp.json && mv temp.json ./edb/infos.json
+
+        echo "$(tput setaf 2)Project value(s) successfuly changed! $(tput setaf 7)"
 
     elif [ $2 == "botstatus" ]; then
-        echo "not done yet :'("
+        echo "$(tput setaf 6)Enter the new settings (leave blank for no change)$(tput setaf 7)"
+        printf "$(tput setaf 3)Please enter the new bot status$(tput setaf 7): "
+        read -r statusName
+        if [ "$statusName" == "" ]; then statusName="$(jq '.status.name' ./edb/infos.json)"; fi
+
+        echo "$(tput setaf 6)Status types:$(tput setaf 7) Playing: 0 | Listening: 2 | Watching: 3"
+        printf "$(tput setaf 3)Please enter the new bot status type$(tput setaf 7): "
+        read -r statusType
+        if [ "$statusType" == "" ]; then statusType="$(jq '.status.type' ./edb/infos.json)"; fi
+
+        echo ""
+
+        echo "$(tput setaf 3)Changing project values...$(tput setaf 7)"
+        jq ".status.name = \"$statusName\"" < ./edb/infos.json > temp.json && mv temp.json ./edb/infos.json
+        jq ".status.type = \"$statusType\"" < ./edb/infos.json > temp.json && mv temp.json ./edb/infos.json
+        echo "$(tput setaf 2)Status value(s) successfuly changed! $(tput setaf 7)"
 
     else
         echo -e $use
@@ -101,6 +119,8 @@ elif [ $1 == "run" ]; then
         echo "$(tput setaf 1)The current directory is not a EDB project! ('./edb/infos.json' not found) $(tput setaf 7)"
         exit 0
     fi
+
+    npm run bot
 
 elif [ $1 == "add" ]; then
     use="edb add : Invalid use\nUse : edb add [command | event] {name}"
