@@ -12,7 +12,7 @@ use="edb : Invalid use\nUse : edb [create | set | add | run]"
 
 if [ -z "$1" ]; then
     echo -e $use
-    exit 0
+    exit 1
 fi
 
 if [ $1 == "create" ]; then
@@ -20,7 +20,7 @@ if [ $1 == "create" ]; then
 
     if [ -z "$2" ]; then
         echo -e $use
-        exit 0
+        exit 1
     fi
 
     echo "$(tput setaf 3)Creating project '$2' $(tput setaf 7)"
@@ -51,16 +51,16 @@ elif [ $1 == "set" ]; then
 
     if [ -z "$2" ]; then
         echo -e $use
-        exit 0
+        exit 1
     elif [ ! -e ./edb/infos.json ]; then
         echo "$(tput setaf 1)The current directory is not a EDB project! ('./edb/infos.json' not found) $(tput setaf 7)"
-        exit 0
+        exit 1
     fi
 
     if [ $2 == "token" ]; then
         if [ -z "$3" ]; then
             echo -e $use
-            exit 0
+            exit 1
         fi
         
         echo "$(tput setaf 3)Changing token value...$(tput setaf 7)"
@@ -110,14 +110,14 @@ elif [ $1 == "set" ]; then
 
     else
         echo -e $use
-        exit 0
+        exit 1
     fi
 
 elif [ $1 == "run" ]; then
 
     if [ ! -e ./edb/infos.json ]; then
         echo "$(tput setaf 1)The current directory is not a EDB project! ('./edb/infos.json' not found) $(tput setaf 7)"
-        exit 0
+        exit 1
     fi
 
     npm run bot
@@ -127,25 +127,25 @@ elif [ $1 == "add" ]; then
 
     if [ -z "$2" ]; then
         echo -e $use
-        exit 0
+        exit 1
     elif [ ! -e ./edb/infos.json ]; then
         echo "$(tput setaf 1)The current directory is not a EDB project! ('./edb/infos.json' not found) $(tput setaf 7)"
-        exit 0
+        exit 1
     elif [ -z "$3" ]; then
         echo -e $use
-        exit 0
+        exit 1
     fi
 
 
     if [ $2 == "command" ]; then
         if [ -f "./commands/$3.js" ] && [ -s "./commands/$3.js" ]; then
             echo "$(tput setaf 1)The '$3.js' file already exists and is not empty! $(tput setaf 7)"
-            exit 0
+            exit 1
         fi
 
         if [ "$(curl -s "https://raw.githubusercontent.com/TotoroGaming/edb/main/templates/commands/$3.js")" == "404: Not Found" ]; then
             echo "$(tput setaf 1)Command not found in the github commands! $(tput setaf 7) See here for all commands: https://github.com/TotoroGaming/edb/tree/main/templates/commands"
-            exit 0
+            exit 1
         fi
 
         curl "https://raw.githubusercontent.com/TotoroGaming/edb/main/templates/commands/$3.js" > "./commands/$3.js"
@@ -154,12 +154,12 @@ elif [ $1 == "add" ]; then
     elif [ $2 == "event" ]; then
         if [ -f "./events/$3.js" ] && [ -s "./events/$3.js" ]; then
             echo "$(tput setaf 1)The '$3.js' file already exists and is not empty! $(tput setaf 7)"
-            exit 0
+            exit 1
         fi
 
         if [ "$(curl -s "https://raw.githubusercontent.com/TotoroGaming/edb/main/templates/events/$3.js")" == "404: Not Found" ]; then
             echo "$(tput setaf 1)Event not found in the github events! $(tput setaf 7) See here for all events: https://github.com/TotoroGaming/edb/tree/main/templates/events"
-            exit 0
+            exit 1
         fi
 
         curl "https://raw.githubusercontent.com/TotoroGaming/edb/main/templates/events/$3.js" > "./events/$3.js"
