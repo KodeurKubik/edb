@@ -6,7 +6,7 @@ read -r confirm
 
 case "$confirm" in
     [yY] | [yY][eE][sS]) echo "Confirmed! Uninstalling EDB..." ;;
-    *) echo "Cancelled!" && exit 0
+    *) echo "Cancelled!" && exit 1
 esac
 
 unalias edb
