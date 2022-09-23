@@ -142,7 +142,6 @@ elif [ $1 == "add" ]; then
             echo "$(tput setaf 1)The '$3.js' file already exists and is not empty! $(tput setaf 7)"
             exit 0
         fi
-       
 
         if [ "$(curl -s "https://raw.githubusercontent.com/TotoroGaming/edb/main/templates/commands/$3.js")" == "404: Not Found" ]; then
             echo "$(tput setaf 1)Command not found in the github commands! $(tput setaf 7) See here for all commands: https://github.com/TotoroGaming/edb/tree/main/templates/commands"
@@ -152,8 +151,18 @@ elif [ $1 == "add" ]; then
         curl "https://raw.githubusercontent.com/TotoroGaming/edb/main/templates/commands/$3.js" > "./commands/$3.js"
         echo "$(tput setaf 2)Command '$3' successfully added! $(tput setaf 7)"
 
-
     elif [ $2 == "event" ]; then
-        echo SOON
+        if [ -f "./events/$3.js" ] && [ -s "./events/$3.js" ]; then
+            echo "$(tput setaf 1)The '$3.js' file already exists and is not empty! $(tput setaf 7)"
+            exit 0
+        fi
+
+        if [ "$(curl -s "https://raw.githubusercontent.com/TotoroGaming/edb/main/templates/events/$3.js")" == "404: Not Found" ]; then
+            echo "$(tput setaf 1)Event not found in the github events! $(tput setaf 7) See here for all events: https://github.com/TotoroGaming/edb/tree/main/templates/events"
+            exit 0
+        fi
+
+        curl "https://raw.githubusercontent.com/TotoroGaming/edb/main/templates/events/$3.js" > "./events/$3.js"
+        echo "$(tput setaf 2)Event '$3' successfully added! $(tput setaf 7)"
     fi
 fi
