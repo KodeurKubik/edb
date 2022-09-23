@@ -6,8 +6,7 @@ const edb = require("../edb");
  * @param {Client} client 
  * @param {import("discord.js").Interaction} interaction
  */
-module.exports = async (interaction) => {
-    const client = interaction.client;
+module.exports = async (client, interaction) => {
 
     if (interaction.isCommand()) {
         if (existsSync(`./commands/${interaction.commandName}.js`)) require(`../commands/${interaction.commandName}.js`).execute(client, interaction)
