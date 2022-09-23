@@ -3,6 +3,10 @@ Create any Discord bot in simple commands!
 
 EDB create you the template of a Discord bot and you finish the code! Templates of commands are available too and you can publish more commands by creating a pull request!
 
+**If you want to create an empty template for a command or an event, just use the same command but for the name put "."**
+Example: edb add command .
+Or: edb add event .
+
 ## Requirements
 - You need to have bash installed to run the index.sh file so Linux or Mac is already installed;
 - JQ for the JSON in the requests, to install you can use [brew](http://brew.sh/) "brew install jq";
