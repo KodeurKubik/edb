@@ -23,7 +23,7 @@ module.exports = {
 
         await interaction.reply({ embeds: [
             new EmbedBuilder()
-                .setDescription(`**</8ball:${client.application.id}> command**`)
+                .setDescription(`**</8ball:${/* I don't know yet how to get the id for the clickable command so I put 0*/ 0}> command**`)
                 .addFields(
                     { name: '❓ Question', value: interaction.options.get('question').value },
                     { name: '🎱 Answer', value: rep },
