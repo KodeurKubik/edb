@@ -10,5 +10,4 @@ case "$confirm" in
 esac
 
 unalias edb
-find . -remove
 echo "EDB uninstalled, please delete the parent folder manually..."
