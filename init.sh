@@ -3,7 +3,7 @@
 echo "$(tput setaf 3)Initializing EDB... $(tput setaf 7)"
 if [ ! -f "./index.sh" ]; then
     echo "Please 'cd' in the edb directory to make it work"
-    exit 0
+    exit
 fi
 
 rm -rf ./templates
