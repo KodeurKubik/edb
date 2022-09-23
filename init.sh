@@ -1,6 +1,11 @@
 #!/bin/bash
 
 echo "$(tput setaf 3)Initializing EDB... $(tput setaf 7)"
+if [ ! -f "./index.sh" ]; then
+    echo "Please 'cd' in the edb directory to make it work"
+    exit 0
+fi
+
 rm -rf ./templates
 chmod +x ./index.sh
 
@@ -22,3 +27,4 @@ fi
 alias edb="$(pwd -P)/index.sh"
 echo "$(tput setaf 2)EDB ready! $(tput setaf 7)Use 'edb' where you want to start using the module!"
 echo "If you want to uninstall EDB, use the 'source ./uninstall.sh' command in this folder."
+echo "$(tput setaf 1)/!\\ Warning! /!\\ If you want to move this EDB folder, please re-use the 'source ./init.sh' command to update the folder location $(tput setaf 7)"
