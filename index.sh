@@ -28,7 +28,7 @@ if [ $1 == "create" ]; then
     cd $2
     mkdir load
     cd load
-    git clone https://github.com/TotoroGaming/edb.git
+    git clone https://github.com/KodeurKubik/edb.git
     cd edb
     find . -type d -not -name 'templates' -delete
     find . -maxdepth 1 -type f -delete
@@ -143,12 +143,12 @@ elif [ $1 == "add" ]; then
             exit 1
         fi
 
-        if [ "$(curl -s "https://raw.githubusercontent.com/TotoroGaming/edb/main/templates/commands/$3.js")" == "404: Not Found" ]; then
-            echo "$(tput setaf 1)Command not found in the github commands! $(tput setaf 7) See here for all commands: https://github.com/TotoroGaming/edb/tree/main/templates/commands"
+        if [ "$(curl -s "https://raw.githubusercontent.com/KodeurKubik/edb/main/templates/commands/$3.js")" == "404: Not Found" ]; then
+            echo "$(tput setaf 1)Command not found in the github commands! $(tput setaf 7) See here for all commands: https://github.com/KodeurKubik/edb/tree/main/templates/commands"
             exit 1
         fi
 
-        curl "https://raw.githubusercontent.com/TotoroGaming/edb/main/templates/commands/$3.js" > "./commands/$3.js"
+        curl "https://raw.githubusercontent.com/KodeurKubik/edb/main/templates/commands/$3.js" > "./commands/$3.js"
         echo "$(tput setaf 2)Command '$3' successfully added! $(tput setaf 7)"
 
     elif [ $2 == "event" ]; then
@@ -157,12 +157,12 @@ elif [ $1 == "add" ]; then
             exit 1
         fi
 
-        if [ "$(curl -s "https://raw.githubusercontent.com/TotoroGaming/edb/main/templates/events/$3.js")" == "404: Not Found" ]; then
-            echo "$(tput setaf 1)Event not found in the github events! $(tput setaf 7) See here for all events: https://github.com/TotoroGaming/edb/tree/main/templates/events"
+        if [ "$(curl -s "https://raw.githubusercontent.com/KodeurKubik/edb/main/templates/events/$3.js")" == "404: Not Found" ]; then
+            echo "$(tput setaf 1)Event not found in the github events! $(tput setaf 7) See here for all events: https://github.com/KodeurKubik/edb/tree/main/templates/events"
             exit 1
         fi
 
-        curl "https://raw.githubusercontent.com/TotoroGaming/edb/main/templates/events/$3.js" > "./events/$3.js"
+        curl "https://raw.githubusercontent.com/KodeurKubik/edb/main/templates/events/$3.js" > "./events/$3.js"
         echo "$(tput setaf 2)Event '$3' successfully added! $(tput setaf 7)"
     fi
 fi
